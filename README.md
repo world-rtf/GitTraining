@@ -6,27 +6,30 @@
 ## Листинг программы:
 
 ```python
+res =str(input("Enter: "))
+l=[]
 def main():
-    res =str(input("Enter: "))
-    l=[]
     flag = True
     count01, count02, count03 = 0, 0, 0
     write = ""
-    for i in range(len(res)): #перебор каждого элемента res
+    for i in range(len(res)):
 
-        if res[i] == "(": #если у нас круглая скобка, рассмотрим варианты...
-            if res[i+1] == ")":  #далее круглая скобка, продрлжаем
+        if res[i] == "(":
+            if res[i+1] == ")":
                 count01+=1
                 write+=res[i]
                 continue
-            elif res[i+1] in "([{": #далее другая скобка, продолжаем
+            elif res[i+1] in "([{":
                 count01+=1
                 write+=res[i]
                 continue
-            elif res[i+1] in "]}": #правильность скобок нарушается
+            elif res[i+1] in "]}":
                 flag=False
                 write=""
                 count01, count02, count03 = 0, 0, 0
+            else:
+                write+=res[i]
+                flag=False
 
 
         if res[i] == "[":
@@ -41,7 +44,8 @@ def main():
                 flag = False
                 write=""
                 count01, count02, count03 = 0, 0, 0
-
+            else:
+                flag=False
 
         if res[i] == "{":
             if res[i+1] == "}":
@@ -67,6 +71,8 @@ def main():
                 write+=res[i]
                 l.append(write)
                 continue
+            else:
+                flag=False
 
         elif res[i] == "]":
             if res[i-1] in "({":
@@ -95,6 +101,8 @@ def main():
         print(max(l, key=len))
     else:
         print(flag)
+
+
 
 
 if __name__ == "__main__":
